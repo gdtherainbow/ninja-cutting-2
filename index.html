@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ninja Cutting Game</title>
+  <style>
+    #canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ninja Cutting Game</h1>
+  <canvas id="canvas" width="400" height="400"></canvas>
+
+  <script>
+    // Get the canvas element
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    // Ninja position
+    var ninjaX = canvas.width / 2;
+    var ninjaY = canvas.height / 2;
+
+    // Mouse event listener to track cutting
+    canvas.addEventListener("mousemove", handleMouseMove);
+
+    // Function to handle mouse movement
+    function handleMouseMove(e) {
+      var rect = canvas.getBoundingClientRect();
+      ninjaX = e.clientX - rect.left;
+      ninjaY = e.clientY - rect.top;
+    }
+
+    // Function to draw the ninja
+    function drawNinja() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.beginPath();
+      ctx.arc(ninjaX, ninjaY, 10, 0, Math.PI * 2);
+      ctx.fillStyle = "black";
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    // Game loop
+    function draw() {
+      drawNinja();
+      requestAnimationFrame(draw);
+    }
+
+    // Start the game loop
+    draw();
+  </script>
+</body>
+</html>
